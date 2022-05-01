@@ -4,6 +4,7 @@ import (
 	"ambassador/src/database"
 	"ambassador/src/models"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -29,7 +30,7 @@ func Register(c *fiber.Ctx) error {
 		Firstname:    data["first_name"],
 		Lastname:     data["last_name"],
 		Email:        data["email"],
-		IsAmbassador: false,
+		IsAmbassador: strings.Contains(c.Path(), "api/ambassador"),
 	}
 	user.SetPassword(data["password"])
 
@@ -94,8 +95,6 @@ func Login(c *fiber.Ctx) error {
 
 }
 
-
-
 func Logout(c *fiber.Ctx) error {
 	cookie := fiber.Cookie{
 		Name:     "JWT",
@@ -109,5 +108,3 @@ func Logout(c *fiber.Ctx) error {
 	})
 
 }
-
-
