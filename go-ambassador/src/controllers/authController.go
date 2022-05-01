@@ -75,7 +75,7 @@ func Login(c *fiber.Ctx) error {
 		scope = "admin"
 	}
 
-	if isAmbassador && user.IsAmbassador {
+	if !isAmbassador && user.IsAmbassador {
 		c.Status(fiber.StatusUnauthorized)
 		return c.JSON(fiber.Map{
 			"message": "unauthorized",
